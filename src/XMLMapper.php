@@ -61,6 +61,7 @@ class XMLMapper
 
     /**
      * Get the underlying SimpleXMLElement
+     *
      * @return \SimpleXMLElement
      */
     public function getObj()
@@ -69,7 +70,7 @@ class XMLMapper
     }
 
     /**
-     * Get the attribute value of the passed attribute name
+     * Get the value of the passed attribute name
      * It loops through the path tags if provided
      *
      * @param string $name
@@ -112,10 +113,10 @@ class XMLMapper
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $key => $element) {
 
-                if ($key === $tag) return (new static())->loadObj($element);
+                if ($key === $tag)
+                    return (new static())->loadObj($element);
 
                 if ($element instanceof \SimpleXMLElement) {
-
                     if ($found = $this->getElement($tag, $element)) {
                         return $found;
                     }
@@ -142,7 +143,8 @@ class XMLMapper
                 if ($var === $tag) {
                     $list[] = (new static())->loadObj($element);
                 } else {
-                    if ($found = $this->getElements($tag, $element)) $list = array_merge($list, $found);
+                    if ($found = $this->getElements($tag, $element))
+                        $list = array_merge($list, $found);
                 }
             }
         }
@@ -226,14 +228,14 @@ class XMLMapper
                 if ($tag) {
                     if ($tag === $var) {
                         foreach ($names as $name) {
-                            $val = $this->fetchAttr($name, $element);
-                            if ($val) $return->{$name} = $val;
+                            if ($val = $this->fetchAttr($name, $element))
+                                $return->{$name} = $val;
                         }
                     }
                 } else {
                     foreach ($names as $name) {
-                        $val = $this->fetchAttr($name, $element);
-                        if ($val) $return->{$name} = $val;
+                        if ($val = $this->fetchAttr($name, $element))
+                            $return->{$name} = $val;
                     }
                 }
                 if (!empty(get_object_vars($return)))
@@ -264,8 +266,7 @@ class XMLMapper
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
-                $found = $this->checkCondition($where, $element);
-                if ($found)
+                if ($this->checkCondition($where, $element))
                     return $this->fetchAttr($name, $element);
 
                 if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
@@ -294,8 +295,7 @@ class XMLMapper
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
-                $found = $this->checkCondition($where, $element);
-                if ($found) {
+                if ($this->checkCondition($where, $element)) {
                     foreach ($names as $name) {
                         $val = $this->fetchAttr($name, $element);
                         if ($val) $return->$name = $val;
@@ -359,8 +359,7 @@ class XMLMapper
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
                 if ($var === $tag) {
-                    $found = $this->checkCondition($where, $element);
-                    if ($found)
+                    if ($this->checkCondition($where, $element))
                         $return[] = (object)current($element->attributes());
                 }
                 if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
