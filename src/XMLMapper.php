@@ -19,8 +19,10 @@ class XMLMapper
      */
     function __construct($xml = null)
     {
-        $this->xml = $xml;
-        $this->obj = simplexml_load_string($xml);
+        if($xml) {
+            $this->xml = $xml;
+            $this->obj = simplexml_load_string($xml);
+        }
     }
 
     /**
