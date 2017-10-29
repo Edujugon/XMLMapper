@@ -91,7 +91,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function find_value_returns_null()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value>zizoo</my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value>edujugon</my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
@@ -101,17 +101,17 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function find_attribute_of_a_element()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><my-value name="zizoo"></my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first name="other"><second><my-value name="edujugon"></my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->findAttribute('name','my-value'));
+        $this->assertEquals('edujugon',$this->mapper->findAttribute('name','my-value'));
     }
 
     /** @test */
     public function find_attribute_returns_null()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="zizoo"></my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="edujugon"></my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
@@ -121,79 +121,79 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function find_attribute_by_name()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="zizoo"></my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="edujugon"></my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->findAttribute('name'));
+        $this->assertEquals('edujugon',$this->mapper->findAttribute('name'));
     }
 
     /** @test */
     public function find_attribute_by_where()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="zizoo" id="1" dev="edu"></my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="edujugon" id="1" dev="edu"></my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->findAttributeWhere('name',['id'=>1,'dev'=> 'edu',['name','!=','john']]));
+        $this->assertEquals('edujugon',$this->mapper->findAttributeWhere('name',['id'=>1,'dev'=> 'edu',['name','!=','john']]));
     }
 
     /** @test */
     public function find_attribute_by_where_with_multiple_extras()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->findAttributeWhere('name',[['id','!=',2],'dev'=> 'edu']));
+        $this->assertEquals('edujugon',$this->mapper->findAttributeWhere('name',[['id','!=',2],'dev'=> 'edu']));
     }
 
     /** @test */
     public function find_attributes_without_tag()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
         $this->assertInstanceOf(\stdClass::class,$this->mapper->findAttributes(['name','dev']));
-        $this->assertEquals('zizoo',$this->mapper->findAttributes(['name','dev'])->name);
+        $this->assertEquals('edujugon',$this->mapper->findAttributes(['name','dev'])->name);
         $this->assertEquals('edu',$this->mapper->findAttributes(['name','dev'])->dev);
     }
 
     /** @test */
     public function find_attributes_with_tag()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
         $this->assertInstanceOf(\stdClass::class,$this->mapper->findAttributesWhere(['name','dev'],['id'=>'1']));
-        $this->assertEquals('zizoo',$this->mapper->findAttributesWhere(['name','dev'],['id'=>'1'])->name);
+        $this->assertEquals('edujugon',$this->mapper->findAttributesWhere(['name','dev'],['id'=>'1'])->name);
         $this->assertEquals('edu',$this->mapper->findAttributesWhere(['name','dev'],['id'=>'1'])->dev);
     }
 
     /** @test */
     public function get_all_attr_for_a_node()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
         $result = $this->mapper->findAllAttributesOf('extra');
 
         $this->assertCount(2,$result);
-        $this->assertEquals('zizoo',$result[1]->name);
+        $this->assertEquals('edujugon',$result[1]->name);
     }
 
     /** @test */
     public function get_all_attr_by_condition()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" dev="a"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
         $result = $this->mapper->findAllAttributesOfWhere('extra',['id'=>1]);
 
         $this->assertCount(1,$result);
-        $this->assertEquals('zizoo',$result[0]->name);
+        $this->assertEquals('edujugon',$result[0]->name);
     }
 
     /** @test */
