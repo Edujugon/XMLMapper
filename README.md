@@ -25,10 +25,10 @@ $mapper = new Edujugon\XMLMapper\XMLMapper($xmlData);
 
 #### Get value
 
-> You must know the tags path. Otherwise you should use [findValue](https://github.com/edujugon/XMLMapper#findvalue).
+> You must know the tags path. Otherwise you should use [findValue](https://github.com/edujugon/XMLMapper#find-value).
 
 ```php
-$value = $mapper->getvalue(['first-tag',second-tag','my-tag']);
+$value = $mapper->getvalue(['first-tag','second-tag','my-tag']);
 ```
 
 The above example takes the value of the tag with name **my-tag**.
@@ -37,10 +37,10 @@ The above example takes the value of the tag with name **my-tag**.
 
 #### Get attribute
 
-> You must know the tags path. Otherwise you should use [findAttribute](https://github.com/edujugon/XMLMapper#findattribute).
+> You must know the tags path. Otherwise you should use [findAttribute](https://github.com/edujugon/XMLMapper#find-attribute).
 
 ```php
-$att = $mapper->getAttribute('id',['first-tag',second-tag','my-tag']);
+$att = $mapper->getAttribute('id',['first-tag','second-tag','my-tag']);
 ```
 
 The above example returns the value of the **id** attribute in **my-tag**.
@@ -93,7 +93,7 @@ When found, returns the value of the provided attribute.
 ```php
 $att = $mapper->findAttributeWhere('my-att',['id'=>1,'dev'=> 'edu',['name','!=','john']])
 ```
-> [Check allowed where operators](https://github.com/edujugon/XMLMapper#whereoperators)
+> [Check allowed where operators](https://github.com/edujugon/XMLMapper#where-operators)
 
 #### Find attributes of a tag
 
@@ -117,7 +117,7 @@ When found, returns an object with those attributes as object properties.
 ```php
 $obj = $mapper->findAttributesWhere(['att-1','att-2'],['dev'=> 'edu',['name','!=','john']])
 ```
-> [Check allowed where operators](https://github.com/edujugon/XMLMapper#whereoperators)
+> [Check allowed where operators](https://github.com/edujugon/XMLMapper#where-operators)
 
 #### Find all attributes of a tag
 
@@ -134,7 +134,7 @@ Get an array of objects with attributes as properties matching the provided tag 
 ```php
 $list = $mapper->findAllAttributesOfWhere('tag-name',['dev'=> 'edu',['name','!=','john']])
 ```
-> [Check allowed where operators](https://github.com/edujugon/XMLMapper#whereoperators)
+> [Check allowed where operators](https://github.com/edujugon/XMLMapper#where-operators)
 
 #### Where operators
 
@@ -158,3 +158,5 @@ They can be combined
 ```
 ['id' => 1,['name','!=','john']]
 ```
+
+Enjoy :)
