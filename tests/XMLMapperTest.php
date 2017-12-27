@@ -248,6 +248,56 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /** @test */
+    public function replate_tag_name()
+    {
+        $xml = $this->loadWeirdXML();
+
+        $this->mapper->loadXML($xml);
+
+        $this->mapper->replaceTagName(
+            [
+                'a10:author' => 'author',
+                'a10:name' => 'name',
+                'a10:updated' => 'updated'
+            ]
+        );
+        $result = $this->mapper->getElement('item');
+        var_dump($result->getObj());
+        $this->assertInstanceOf(\Edujugon\XMLMapper\XMLMapper::class,$result);
+
+        $name = $result->findValue('name');
+
+        $this->assertEquals('Netybox Group',$name);
+    }
+
+    private function loadWeirdXML()
+    {
+        return '<?xml version="1.0" encoding="utf-8"?>
+        <rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0">
+        <item>
+        <guid isPermaLink="false">123123</guid>
+        <link>
+        mylink.com
+        </link>
+        <a10:author>
+        <a10:name>Netybox Group</a10:name>
+        </a10:author>
+        <category>javascript</category>
+        <category>html</category>
+        <category>angularjs</category>
+        <title>
+        Senior JavaScript Developer
+        </title>
+        <description>
+        <p>Netybox is looking for a Senior JavaScript Developer </p>
+        </description>
+        <pubDate>Wed, 27 Dec 2017 00:56:02 Z</pubDate>
+        <a10:updated>2017-12-27T00:56:02Z</a10:updated>
+        </item>
+        </rss>';
+    }
+
     private function loadXML()
     {
         return '<?xml version="1.0" encoding="utf-8"?>

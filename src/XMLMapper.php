@@ -72,6 +72,26 @@ class XMLMapper
     }
 
     /**
+     * Replace tag names of the xml string
+     * and update the object base on this new tags
+     *
+     * @param array $names
+     * @return $this
+     */
+    public function replaceTagName(array $names)
+    {
+        $search = [];
+        $replace = [];
+        foreach ($names as $key => $value) {
+            $search[] = $key;
+            $replace[] = $value;
+        }
+
+        $this->loadXML(str_replace($search, $replace, $this->getXml()));
+
+        return $this;
+    }
+    /**
      * Get the value of the passed attribute name
      * It loops through the path tags if provided
      *
