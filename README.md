@@ -25,7 +25,7 @@ $mapper = new Edujugon\XMLMapper\XMLMapper($xmlData);
 
 #### Replace tag names
 
-You can easily replace any tag name for the xml for an easier access.
+You can easily replace any tag name of the xml for an easier access.
 
 ```php
 $mapper->replaceTagName(
