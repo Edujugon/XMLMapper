@@ -72,8 +72,8 @@ class XMLMapper
     }
 
     /**
-     * Replace tag names of the xml string
-     * and update the object base on this new tags
+     * Replace tag names of a xml string
+     * and update the XMLMapper obj value based on the resulting xml
      *
      * @param array $names
      * @return $this
@@ -83,8 +83,10 @@ class XMLMapper
         $search = [];
         $replace = [];
         foreach ($names as $key => $value) {
-            $search[] = $key;
-            $replace[] = $value;
+            $search[] = "<$key>";
+            $search[] = "</$key>";
+            $replace[] = "<$value>";
+            $replace[] = "</$value>";
         }
 
         $this->loadXML(str_replace($search, $replace, $this->getXml()));

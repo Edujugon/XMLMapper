@@ -251,7 +251,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function replate_tag_name()
     {
-        $xml = $this->loadWeirdXML();
+        $xml = $this->loadXMLWithNamespace();
 
         $this->mapper->loadXML($xml);
 
@@ -263,7 +263,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
             ]
         );
         $result = $this->mapper->getElement('item');
-        var_dump($result->getObj());
+
         $this->assertInstanceOf(\Edujugon\XMLMapper\XMLMapper::class,$result);
 
         $name = $result->findValue('name');
@@ -271,7 +271,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Netybox Group',$name);
     }
 
-    private function loadWeirdXML()
+    private function loadXMLWithNamespace()
     {
         return '<?xml version="1.0" encoding="utf-8"?>
         <rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0">
