@@ -28,40 +28,40 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function get_value_from_content_element()
     {
-        $xml = '<xml id="33"><content att="something">zizoo</content></xml>';
+        $xml = '<xml id="33"><content att="something">edujugon</content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->getvalue('content'));
+        $this->assertEquals('edujugon',$this->mapper->getvalue('content'));
     }
 
     /** @test */
     public function throw_exception_when_path_is_wrong()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><my-value>zizoo</my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><my-value>edujugon</my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
         $this->expectException(\Edujugon\XMLMapper\Exceptions\XMLMapperException::class);
         $this->expectExceptionMessage('Tag "i-dont-exists" Doesn\'t exist in the provided xml');
 
-        $this->assertEquals('zizoo',$this->mapper->getvalue(['content','i-dont-exists','second','my-value']));
+        $this->assertEquals('edujugon',$this->mapper->getvalue(['content','i-dont-exists','second','my-value']));
     }
 
     /** @test */
     public function get_value_from_a_deep_element()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><my-value>zizoo</my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><my-value>edujugon</my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->getvalue(['content','first','second','my-value']));
+        $this->assertEquals('edujugon',$this->mapper->getvalue(['content','first','second','my-value']));
     }
 
     /** @test */
     public function get_attribute_from_first_node()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
@@ -71,7 +71,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function get_attribute_from_child_node()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="zizoo" id="1" dev="edu"></extra></extras></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
@@ -81,11 +81,11 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function find_value_of_a_element()
     {
-        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value>zizoo</my-value></second></first></content></xml>';
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value>edujugon</my-value></second></first></content></xml>';
 
         $this->mapper->loadXML($xml);
 
-        $this->assertEquals('zizoo',$this->mapper->findValue('my-value'));
+        $this->assertEquals('edujugon',$this->mapper->findValue('my-value'));
     }
 
     /** @test */
