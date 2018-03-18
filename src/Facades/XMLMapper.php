@@ -1,5 +1,5 @@
 <?php
-namespace Edujugon\XMLMapper\Facade;
+namespace Edujugon\XMLMapper\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Edujugon\XMLMapper\XMLMapper as XMLMapperClass;
