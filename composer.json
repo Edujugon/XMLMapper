@@ -14,9 +14,21 @@
             "Edujugon\\XMLMapper\\": "src/"
         }
     },
+    "require": {
+        "illuminate/support": "^5.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
-    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Edujugon\\XMLMapper\\Providers\\XMLMapperServiceProvider"
+            ],
+            "aliases": {
+                "PushNotification": "Edujugon\\XMLMapper\\Facades\\XMLMapper"
+            }
+        }
+    },
     "minimum-stability": "dev"
 }
