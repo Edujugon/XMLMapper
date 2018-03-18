@@ -4,7 +4,7 @@ namespace Edujugon\XMLMapper\Providers;
 use Edujugon\XMLMapper\XMLMapper;
 use Illuminate\Support\ServiceProvider;
 
-class XMLMapperProvider extends ServiceProvider
+class XMLMapperServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
