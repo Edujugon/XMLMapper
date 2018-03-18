@@ -5,8 +5,6 @@ the simplest API to interact with XML data.
 
 ##  Installation
 
-##### Type in console:
-
 type in console:
 
 ```
