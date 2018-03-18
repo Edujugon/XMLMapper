@@ -1,6 +1,6 @@
 {
     "name": "edujugon/xml-mapper",
-    "description": "Useful API to interact with XML data",
+    "description": "XMLMapper for Laravel and PHP",
     "keywords": ["xml","data"],
     "license": "MIT",
     "authors": [
