@@ -1,13 +1,38 @@
-# XMLMapper
+# XMLMapper for Laravel and PHP
 
-API to interact with XML data
+Are you working with xml data? then this package is for you. This is 
+the simplest API to interact with XML data.
 
 ##  Installation
 
 ##### Type in console:
 
+type in console:
+
 ```
 composer require edujugon/xml-mapper
+```
+
+## Laravel 5.*
+
+**Laravel 5.5 or higher?**
+
+Then you don't have to either register or add the alias, this package uses Package Auto-Discovery's feature, and should be available as soon as you install it via Composer.
+
+(Laravel < 5.5) Register the XMLMapper service by adding it to the providers array.
+```php
+'providers' => array(
+    ...
+    Edujugon\XMLMapper\Providers\XMLMapperServiceProvider::class
+)
+```
+
+(Laravel < 5.5) Let's add the Alias facade, add it to the aliases array.
+```php
+'aliases' => array(
+    ...
+    'XMLMapper' => Edujugon\XMLMapper\Facades\XMLMapper::class,
+)
 ```
 
 ##  Usage samples
@@ -22,6 +47,14 @@ or
 ```php
 $mapper = new Edujugon\XMLMapper\XMLMapper($xmlData);
 ```
+
+or with Laravel Facade
+
+```php
+$mapper = XMLMapper::loadXML($xmlData);
+```
+> Don't forget to use the facade use statement at the
+top of your class: `use Edujugon\XMLMapper\Facades\XMLMapper;`
 
 #### Replace tag names
 
