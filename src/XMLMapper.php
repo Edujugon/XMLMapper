@@ -99,7 +99,7 @@ class XMLMapper
      *
      * @param string $name
      * @param null|array $pathTags
-     * @return string
+     * @return string|null
      */
     public function getAttribute($name, $pathTags = null)
     {
@@ -112,7 +112,7 @@ class XMLMapper
      * It loops through the path tags if provided
      *
      * @param null|array $pathTags
-     * @return string
+     * @return string|null
      */
     public function getValue($pathTags = null)
     {
@@ -213,6 +213,12 @@ class XMLMapper
     public function findAttribute($name, $tag = null, $obj = null)
     {
         $obj = $obj ?: $this->getObj();
+
+        $found = $this->getAttribute($name);
+
+        if ($found) {
+            return $found;
+        }
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {

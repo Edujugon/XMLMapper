@@ -42,8 +42,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
 
         $this->mapper->loadXML($xml);
 
-        $this->expectException(\Edujugon\XMLMapper\Exceptions\XMLMapperException::class);
-        $this->expectExceptionMessage('Tag "i-dont-exists" Doesn\'t exist in the provided xml');
+        $this->setExpectedException(\Edujugon\XMLMapper\Exceptions\XMLMapperException::class);
 
         $this->assertEquals('edujugon',$this->mapper->getvalue(['content','i-dont-exists','second','my-value']));
     }
@@ -125,6 +124,8 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
 
         $this->mapper->loadXML($xml);
 
+        $this->assertEquals('33',$this->mapper->findAttribute('id'));
+        $this->assertEquals('something',$this->mapper->findAttribute('att'));
         $this->assertEquals('edujugon',$this->mapper->findAttribute('name'));
     }
 
