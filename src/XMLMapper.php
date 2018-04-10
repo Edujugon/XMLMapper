@@ -497,4 +497,16 @@ class XMLMapper
         return $found;
     }
 
+    public function __sleep()
+    {
+        //obj property is excluded to prevent serialization issues
+        return ['xml'];
+    }
+
+    public function __wakeup()
+    {
+        // Generate object
+        $this->loadXML($this->getXml());
+    }
+
 }
