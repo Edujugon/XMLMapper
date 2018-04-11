@@ -502,6 +502,11 @@ class XMLMapper
                     $found = false;
                 }
                 break;
+            case 'containsCaseInsensitive':
+                if (stripos($this->fetchAttr($val[0], $element), $val[2]) === false) {
+                    $found = false;
+                }
+                break;
             default:
                 $found = false;
         }

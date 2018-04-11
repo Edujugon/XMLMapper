@@ -199,6 +199,7 @@ Custom:
 *   !==
 *   ===
 *   contains
+*   containsCaseInsensitive
 ```
 [['name','!=','john'],['id','!=',7]]
 [['name','contains','john']]
