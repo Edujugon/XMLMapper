@@ -483,13 +483,24 @@ class XMLMapper
         $found = true;
         switch ($val[1]) {
             case '!=':
-                if ($val[2] == $this->fetchAttr($val[0], $element)) $found = false;
+                if ($val[2] == $this->fetchAttr($val[0], $element)) {
+                    $found = false;
+                }
                 break;
             case '!==':
-                if ($val[2] === $this->fetchAttr($val[0], $element)) $found = false;
+                if ($val[2] === $this->fetchAttr($val[0], $element)) {
+                    $found = false;
+                }
                 break;
             case '===':
-                if ($val[2] !== $this->fetchAttr($val[0], $element)) $found = false;
+                if ($val[2] !== $this->fetchAttr($val[0], $element)) {
+                    $found = false;
+                }
+                break;
+            case 'contains':
+                if (strpos($this->fetchAttr($val[0], $element), $val[2]) === false) {
+                    $found = false;
+                }
                 break;
             default:
                 $found = false;

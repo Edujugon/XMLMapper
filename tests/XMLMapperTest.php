@@ -140,6 +140,16 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function find_attribute_by_where_contains()
+    {
+        $xml = '<xml id="33"><content att="something"><first><second><edu><e><d><u><edu></edu></u></d></e></edu><my-value name="edujugon" id="1" dev="eduardo"></my-value></second></first></content></xml>';
+
+        $this->mapper->loadXML($xml);
+
+        $this->assertEquals('edujugon',$this->mapper->findAttributeWhere('name',[['dev','contains','edu']]));
+    }
+
+    /** @test */
     public function find_attribute_by_where_with_multiple_extras()
     {
         $xml = '<xml id="33"><content att="something"><first><second><extras><extra name="wrong" id="2" dev="other"></extra><extra name="edujugon" id="1" dev="edu"></extra></extras></second></first></content></xml>';

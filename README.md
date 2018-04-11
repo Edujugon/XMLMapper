@@ -198,8 +198,10 @@ Custom:
 *   !=
 *   !==
 *   ===
+*   contains
 ```
 [['name','!=','john'],['id','!=',7]]
+[['name','contains','john']]
 ```
 
 They can be combined
