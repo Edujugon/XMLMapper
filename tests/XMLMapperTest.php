@@ -302,6 +302,20 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Netybox Group',$name);
     }
 
+    /** @test */
+    public function merge_xmls()
+    {
+        $first = $this->loadXML();
+        $second = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" company="acne"></extra><extra name="edujugon" id="1" company="acne"></extra></extras></second></first></content></xml>';
+
+        $this->mapper->loadXML($first);
+
+        $this->mapper->mergeXML($second,'bookstore');
+
+        $this->assertInstanceOf(\Edujugon\XMLMapper\XMLMapper::class, $this->mapper->getElements('extra')[0]);
+        $this->assertEquals('acne', $this->mapper->findAttributeWhere('company',['name'=>'f','id'=>'2']));
+    }
+
     private function loadXMLWithNamespace()
     {
         return '<?xml version="1.0" encoding="utf-8"?>

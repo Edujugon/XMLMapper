@@ -83,9 +83,9 @@ class XMLMapper
         $search = [];
         $replace = [];
         foreach ($names as $key => $value) {
-            $search[] = "<$key>";
+            $search[] = "<$key";
             $search[] = "</$key>";
-            $replace[] = "<$value>";
+            $replace[] = "<$value";
             $replace[] = "</$value>";
         }
 
@@ -167,8 +167,9 @@ class XMLMapper
                 if ($var === $tag) {
                     $list[] = (new static())->loadObj($element);
                 } else {
-                    if ($found = $this->getElements($tag, $element))
+                    if ($found = $this->getElements($tag, $element)) {
                         $list = array_merge($list, $found);
+                    }
                 }
             }
         }
@@ -403,6 +404,30 @@ class XMLMapper
             return $return;
 
         return null;
+    }
+
+    /**
+     * Merge a new xml into the existing one
+     * @param $xml
+     * @param string $intoTag
+     */
+    public function mergeXML($xml, $intoTag)
+    {
+        $toMerge = new static($xml);
+        // Set tag name to "merged"
+        $toMerge->replaceTagName(['xml' => 'merged']);
+        $xml = $toMerge->getXml();
+
+        $endTag = '</' . $intoTag . '>';
+        $long = strlen($endTag);
+
+        $pos = strpos($this->getXml(), $endTag);
+        $first = substr($this->getXml(), 0, $pos);
+        $second = substr($this->getXml(), $pos + $long);
+
+        $mergedXML = $first . $xml . $endTag . $second;
+
+        $this->loadXML($mergedXML);
     }
 
     /**
