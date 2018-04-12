@@ -54,23 +54,6 @@ $mapper = XMLMapper::loadXML($xmlData);
 > Don't forget to use the facade use statement at the
 top of your class: `use Edujugon\XMLMapper\Facades\XMLMapper;`
 
-#### Replace tag names
-
-You can easily replace any tag name of the xml for an easier access.
-
-```php
-$mapper->replaceTagName(
-    [
-        'a10:author' => 'author',
-        'a10:name' => 'name',
-        'a10:updated' => 'updated'
-    ]
-);
-```
-
-The above snippet replaces all tags with names matching the keys and sets their values as new tag names.
-Also updates the underlying object based on the new xml.
-
 #### Get value
 
 > You must know the tags path. Otherwise you should use [findValue](https://github.com/edujugon/XMLMapper#find-value).
@@ -208,6 +191,31 @@ Custom:
 They can be combined
 ```
 ['id' => 1,['name','!=','john']]
+```
+
+#### Replace tag names
+
+You can easily replace any tag name of the xml for an easier access.
+
+```php
+$mapper->replaceTagName(
+    [
+        'a10:author' => 'author',
+        'a10:name' => 'name',
+        'a10:updated' => 'updated'
+    ]
+);
+```
+
+The above snippet replaces all tags with names matching the keys and sets their values as new tag names.
+Also updates the underlying object based on the new xml.
+
+#### Merge a new xml into the existing one
+
+You can easily merge a new xml into the existing one just after a provided tag name.
+
+```php
+$mapper->mergeXML($newXml, 'desiredParentTag');
 ```
 
 Enjoy :)
