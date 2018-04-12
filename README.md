@@ -212,7 +212,7 @@ Also updates the underlying object based on the new xml.
 
 #### Merge a new xml into the existing one
 
-You can easily merge a new xml into the existing one just after a provided tag name.
+You can easily merge a new xml into the existing one. It sets it as child of the provided tag.
 
 ```php
 $mapper->mergeXML($newXml, 'desiredParentTag');

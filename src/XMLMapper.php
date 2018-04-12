@@ -413,10 +413,8 @@ class XMLMapper
      */
     public function mergeXML($xml, $intoTag)
     {
-        $toMerge = new static($xml);
-        // Set tag name to "merged"
-        $toMerge->replaceTagName(['xml' => 'merged']);
-        $xml = $toMerge->getXml();
+        // remove xml tag declaration if any
+        $xml = preg_replace('/<\?xml.*?>/', '', $xml);
 
         $endTag = '</' . $intoTag . '>';
         $long = strlen($endTag);

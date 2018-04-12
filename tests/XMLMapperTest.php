@@ -306,7 +306,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
     public function merge_xmls()
     {
         $first = $this->loadXML();
-        $second = '<xml id="33"><content att="something"><first><second><extras><extra name="f" id="2" company="acne"></extra><extra name="edujugon" id="1" company="acne"></extra></extras></second></first></content></xml>';
+        $second = '<?xml id="33"?><content att="something"><first><second><extras><extra name="f" id="2" company="acne"></extra><extra name="edujugon" id="1" company="acne"></extra></extras></second></first></content>';
 
         $this->mapper->loadXML($first);
 
