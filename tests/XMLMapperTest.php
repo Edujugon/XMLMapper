@@ -316,6 +316,17 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('acne', $this->mapper->findAttributeWhere('company',['name'=>'f','id'=>'2']));
     }
 
+    /** @test */
+    public function wrap_with_add_new_parent_tag()
+    {
+        $this->mapper->loadXML($this->loadXML());
+
+        $this->mapper->wrapWith('parent');
+
+        $this->assertInstanceOf(\Edujugon\XMLMapper\XMLMapper::class, $this->mapper->getElement('bookstore'));
+        $this->assertNull($this->mapper->getElement('parent2'));
+    }
+
     private function loadXMLWithNamespace()
     {
         return '<?xml version="1.0" encoding="utf-8"?>

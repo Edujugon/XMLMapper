@@ -410,6 +410,7 @@ class XMLMapper
      * Merge a new xml into the existing one
      * @param $xml
      * @param string $intoTag
+     * @return $this
      */
     public function mergeXML($xml, $intoTag)
     {
@@ -426,6 +427,31 @@ class XMLMapper
         $mergedXML = $first . $xml . $endTag . $second;
 
         $this->loadXML($mergedXML);
+
+        return $this;
+    }
+
+    /**
+     * Wrap current xml with a tag
+     *
+     * @param $tagName
+     * @return $this
+     */
+    public function wrapWith($tagName)
+    {
+        $xml = $this->getXml();
+
+        // remove xml tag declaration
+        $xml = preg_replace('/<\?xml.*?>/', '', $xml);
+
+        $startTag = '<' . $tagName . '>';
+        $endTag = '</' . $tagName . '>';
+
+        $finalXml = $startTag . $xml . $endTag;
+
+        $this->loadXML($finalXml);
+
+        return $this;
     }
 
     /**
