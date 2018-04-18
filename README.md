@@ -218,4 +218,10 @@ You can easily merge a new xml into the existing one. It sets it as child of the
 $mapper->mergeXML($newXml, 'desiredParentTag');
 ```
 
+#### Wrap the current xml with a custom tag
+
+```php
+$mapper->wrapWith('$tagName');
+```
+
 Enjoy :)
