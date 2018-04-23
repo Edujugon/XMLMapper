@@ -477,6 +477,9 @@ class XMLMapper
                 return;
             }
         }
+
+        //update xml
+        $this->loadObj($obj);
     }
 
     /**
