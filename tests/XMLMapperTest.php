@@ -334,7 +334,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($this->mapper->getAttribute('test'));
 
-        $this->mapper->addAttributes('bookstore', [ 'test' => 'found', 'test2' => 'found']);
+        $this->mapper->addAttributes([ 'test' => 'found', 'test2' => 'found']);
 
         $this->assertEquals('found', $this->mapper->getAttribute('test'));
         $this->assertEquals('found', $this->mapper->getAttribute('test2'));
@@ -347,7 +347,7 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($this->mapper->getElement('book')->getAttribute('test'));
 
-        $this->mapper->addAttributes('book', [ 'test' => 'found', 'test2' => 'found']);
+        $this->mapper->addAttributes([ 'test' => 'found', 'test2' => 'found'], 'book');
 
         $this->assertEquals('found', $this->mapper->getElement('book')->getAttribute('test'));
         $this->assertEquals('found', $this->mapper->getElement('book')->getAttribute('test2'));

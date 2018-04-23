@@ -224,10 +224,12 @@ $mapper->mergeXML($newXml, 'desiredParentTag');
 $mapper->wrapWith('tagName');
 ```
 
-#### Add attributes based on tagName
+#### Add attributes
 
 ```php
-$mapper-addAttributes('tagName', ['attr1' => 'value1', 'attr2' => 'value2');
+$mapper-addAttributes(['attr1' => 'value1', 'attr2' => 'value2']);
+or
+$mapper-addAttributes(['attr1' => 'value1', 'attr2' => 'value2'], 'tagName');
 ```
 
 Enjoy :)

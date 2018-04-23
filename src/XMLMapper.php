@@ -455,16 +455,16 @@ class XMLMapper
     }
 
     /**
-     * Add attributes to the xml based on tagName
+     * Add attributes to the xml
      *
      * @param $tagName
      * @param array $attributes
      */
-    public function addAttributes($tagName, array $attributes)
+    public function addAttributes(array $attributes, $tagName = null)
     {
         $obj = $this->getObj();
 
-        if ($tagName === $obj->getName()) {
+        if (is_null($tagName) || $tagName === $obj->getName()) {
             $this->addAttributesToObj($obj, $attributes);
 
             return;
