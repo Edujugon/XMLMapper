@@ -327,6 +327,32 @@ class XMLMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->mapper->getElement('parent2'));
     }
 
+    /** @test */
+    public function add_attributes_to_parent_node()
+    {
+        $this->mapper->loadXML($this->loadXML());
+
+        $this->assertNull($this->mapper->getAttribute('test'));
+
+        $this->mapper->addAttributes('bookstore', [ 'test' => 'found', 'test2' => 'found']);
+
+        $this->assertEquals('found', $this->mapper->getAttribute('test'));
+        $this->assertEquals('found', $this->mapper->getAttribute('test2'));
+    }
+
+    /** @test */
+    public function add_attributes_to_direct_child_node()
+    {
+        $this->mapper->loadXML($this->loadXML());
+
+        $this->assertNull($this->mapper->getElement('book')->getAttribute('test'));
+
+        $this->mapper->addAttributes('book', [ 'test' => 'found', 'test2' => 'found']);
+
+        $this->assertEquals('found', $this->mapper->getElement('book')->getAttribute('test'));
+        $this->assertEquals('found', $this->mapper->getElement('book')->getAttribute('test2'));
+    }
+
     private function loadXMLWithNamespace()
     {
         return '<?xml version="1.0" encoding="utf-8"?>

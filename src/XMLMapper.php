@@ -455,6 +455,44 @@ class XMLMapper
     }
 
     /**
+     * Add attributes to the xml based on tagName
+     *
+     * @param $tagName
+     * @param array $attributes
+     */
+    public function addAttributes($tagName, array $attributes)
+    {
+        $obj = $this->getObj();
+
+        if ($tagName === $obj->getName()) {
+            $this->addAttributesToObj($obj, $attributes);
+
+            return;
+        }
+
+        foreach ($obj->children() as $key => $element) {
+            if ($key === $tagName) {
+                $this->addAttributesToObj($element, $attributes);
+
+                return;
+            }
+        }
+    }
+
+    /**
+     * Add attributes to provided object
+     *
+     * @param $obj
+     * @param $attributes
+     */
+    protected function addAttributesToObj($obj, $attributes)
+    {
+        foreach ($attributes as $key => $value) {
+            $obj->addAttribute($key, $value);
+        }
+    }
+
+    /**
      * Fetch an attribute value
      *
      * @param string $name
