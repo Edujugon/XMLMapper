@@ -221,13 +221,13 @@ $mapper->mergeXML($newXml, 'desiredParentTag');
 #### Wrap the current xml with a custom tag
 
 ```php
-$mapper->wrapWith('$tagName');
+$mapper->wrapWith('tagName');
 ```
 
 #### Add attributes based on tagName
 
 ```php
-$mapper-addAttributes($tagName, ['attr1' => 'value1', 'attr2' => 'value2');
+$mapper-addAttributes('tagName', ['attr1' => 'value1', 'attr2' => 'value2');
 ```
 
 Enjoy :)
