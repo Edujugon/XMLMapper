@@ -459,6 +459,7 @@ class XMLMapper
      *
      * @param $tagName
      * @param array $attributes
+     * @return $this
      */
     public function addAttributes(array $attributes, $tagName = null)
     {
@@ -466,20 +467,20 @@ class XMLMapper
 
         if (is_null($tagName) || $tagName === $obj->getName()) {
             $this->addAttributesToObj($obj, $attributes);
+        } else {
+            foreach ($obj->children() as $key => $element) {
+                if ($key === $tagName) {
+                    $this->addAttributesToObj($element, $attributes);
 
-            return;
-        }
-
-        foreach ($obj->children() as $key => $element) {
-            if ($key === $tagName) {
-                $this->addAttributesToObj($element, $attributes);
-
-                return;
+                    break;
+                }
             }
         }
 
         //update xml
         $this->loadObj($obj);
+
+        return $this;
     }
 
     /**
