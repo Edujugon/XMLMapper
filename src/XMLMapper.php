@@ -131,19 +131,18 @@ class XMLMapper
     {
         $obj = $obj ?: $this->getObj();
 
-        if (property_exists($obj, $tag))
+        if (property_exists($obj, $tag)) {
             return (new static())->loadObj($obj->{$tag});
+        }
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $key => $element) {
-
-                if ($key === $tag)
+                if ($key === $tag) {
                     return (new static())->loadObj($element);
+                }
 
-                if ($element instanceof \SimpleXMLElement) {
-                    if ($found = $this->getElement($tag, $element)) {
+                if ($element->count() && $found = $this->getElement($tag, $element)) {
                         return $found;
-                    }
                 }
             }
         }
@@ -167,7 +166,7 @@ class XMLMapper
                 if ($var === $tag) {
                     $list[] = (new static())->loadObj($element);
                 } else {
-                    if ($found = $this->getElements($tag, $element)) {
+                    if ($element->count() && $found = $this->getElements($tag, $element)) {
                         $list = array_merge($list, $found);
                     }
                 }
@@ -189,14 +188,14 @@ class XMLMapper
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
-                if ($tag === $var)
+                if ($tag === $var) {
                     return $this->fetchValue($element);
+                }
 
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findValue($tag, $element);
-
-                    if (is_string($found))
+                if ($element->count() && $found = $this->findValue($tag, $element)) {
+                    if (is_string($found)) {
                         return $found;
+                    }
                 }
             }
         }
@@ -224,16 +223,18 @@ class XMLMapper
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
                 if ($tag) {
-                    if ($tag === $var)
+                    if ($tag === $var) {
                         return $this->fetchAttr($name, $element);
+                    }
                 } else {
-                    if ($att = $this->fetchAttr($name, $element))
+                    if ($att = $this->fetchAttr($name, $element)) {
                         return $att;
+                    }
                 }
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAttribute($name, $tag, $element);
-                    if (is_string($found))
+                if ($element->count() && $found = $this->findAttribute($name, $tag, $element)) {
+                    if (is_string($found)) {
                         return $found;
+                    }
                 }
             }
         }
@@ -259,24 +260,26 @@ class XMLMapper
                 if ($tag) {
                     if ($tag === $var) {
                         foreach ($names as $name) {
-                            if ($val = $this->fetchAttr($name, $element))
+                            if ($val = $this->fetchAttr($name, $element)) {
                                 $return->{$name} = $val;
+                            }
                         }
                     }
                 } else {
                     foreach ($names as $name) {
-                        if ($val = $this->fetchAttr($name, $element))
+                        if ($val = $this->fetchAttr($name, $element)) {
                             $return->{$name} = $val;
+                        }
                     }
                 }
-                if (!empty(get_object_vars($return)))
+                if (!empty(get_object_vars($return))) {
                     return $return;
+                }
 
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAttributes($names, $tag, $element);
-
-                    if ($found instanceof \stdClass)
+                if ($element->count() && $found = $this->findAttributes($names, $tag, $element)) {
+                    if ($found instanceof \stdClass) {
                         return $found;
+                    }
                 }
             }
         }
@@ -297,13 +300,14 @@ class XMLMapper
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
-                if ($this->checkCondition($where, $element))
+                if ($this->checkCondition($where, $element)) {
                     return $this->fetchAttr($name, $element);
+                }
 
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAttributeWhere($name, $where, $element);
-                    if (is_string($found))
+                if ($element->count() && $found = $this->findAttributeWhere($name, $where, $element)) {
+                    if (is_string($found)) {
                         return $found;
+                    }
                 }
             }
         }
@@ -329,16 +333,19 @@ class XMLMapper
                 if ($this->checkCondition($where, $element)) {
                     foreach ($names as $name) {
                         $val = $this->fetchAttr($name, $element);
-                        if ($val) $return->$name = $val;
+                        if ($val) {
+                            $return->$name = $val;
+                        }
                     }
                 }
-                if (!empty(get_object_vars($return)))
+                if (!empty(get_object_vars($return))) {
                     return $return;
+                }
 
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAttributesWhere($names, $where, $element);
-                    if ($found instanceof \stdClass)
+                if ($element->count() && $found = $this->findAttributesWhere($names, $where, $element)) {
+                    if ($found instanceof \stdClass) {
                         return $found;
+                    }
                 }
             }
         }
@@ -359,17 +366,19 @@ class XMLMapper
 
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
-                if ($var === $tag)
+                if ($var === $tag) {
                     $return[] = (object)current($element->attributes());
+                }
 
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAllAttributesOf($tag, $element);
-                    if (is_array($found))
+                if ($element->count() && $found = $this->findAllAttributesOf($tag, $element)) {
+                    if (is_array($found)) {
                         return $found;
+                    }
                 }
             }
-            if (!empty($return))
+            if (!empty($return)) {
                 return $return;
+            }
         }
         return null;
     }
@@ -390,18 +399,20 @@ class XMLMapper
         if ($obj instanceof \SimpleXMLElement) {
             foreach ($obj->children() as $var => $element) {
                 if ($var === $tag) {
-                    if ($this->checkCondition($where, $element))
+                    if ($this->checkCondition($where, $element)) {
                         $return[] = (object)current($element->attributes());
+                    }
                 }
-                if ($element instanceof \SimpleXMLElement && $element->count() > 0) {
-                    $found = $this->findAllAttributesOfWhere($tag, $where, $element);
-                    if (is_array($found))
+                if ($element->count() && $found = $this->findAllAttributesOfWhere($tag, $where, $element)) {
+                    if (is_array($found)) {
                         return $found;
+                    }
                 }
             }
         }
-        if (!empty($return))
+        if (!empty($return)) {
             return $return;
+        }
 
         return null;
     }
